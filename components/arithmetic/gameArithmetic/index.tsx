@@ -4,19 +4,26 @@ import Header from "@/components/common/header";
 import SkipIcon from "@/components/common/icon/skipIcon";
 import StopIcon from "@/components/common/icon/stopIcon";
 import SuccessPrompt from "@/components/common/successPrompt";
+import FailPrompt from "@/components/common/failPrompt";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 export default function GameArithmetic() {
-  let num: any = 9;
-  let arr1: Number[] = [];
-  let arr2: Number[] = [];
+  const query: string = useRouter().query.id as string;
+  const [cnt, setCnt] = useState<number>(0);
+  const [flag, setFlag] = useState<boolean>(true);
+  let num: number = 9;
+  let arr1: number[] = [];
+  let arr2: number[] = [];
   let gameList: string[] = [];
-  let answer: Number[] = [];
+  let answer: number[] = [];
+
   function step1() {
     while (num > 0) {
-      let numm1:Number[] = Math.floor(Math.random() * (9 - 1)) + 1;
-      arr1.push(numm1);
-      let numm2 = Math.floor(Math.random() * (9 - 1)) + 1;
-      arr2.push(numm2);
+      let tmp1: number = Math.floor(Math.random() * (9 - 1)) + 1;
+      arr1.push(tmp1);
+      let tmp2: number = Math.floor(Math.random() * (9 - 1)) + 1;
+      arr2.push(tmp2);
       num -= 1;
     }
     for (let i = 0; arr1.length > i; i++) {
@@ -28,7 +35,6 @@ export default function GameArithmetic() {
         answer.push(arr1[i] - arr2[i]);
       }
     }
-    console.log(gameList, answer);
   }
   function step2() {
     while (num > 0) {
@@ -55,7 +61,6 @@ export default function GameArithmetic() {
         }
       }
     }
-    console.log(gameList, answer);
   }
   function step3() {
     while (num > 0) {
@@ -74,7 +79,6 @@ export default function GameArithmetic() {
         answer.push(arr1[i] - arr2[i]);
       }
     }
-    console.log(gameList, answer);
   }
   function step4() {
     while (num > 0) {
@@ -93,11 +97,79 @@ export default function GameArithmetic() {
         answer.push(arr1[i] * arr2[i]);
       }
     }
-    console.log(gameList, answer);
   }
+  function step5() {
+    while (num > 0) {
+      let numm1 = Math.floor(Math.random() * (99 - 1)) + 1;
+      arr1.push(numm1);
+      let numm2 = Math.floor(Math.random() * (99 - 1)) + 1;
+      arr2.push(numm2);
+      num -= 1;
+    }
+    for (let i = 0; arr1.length > i; i++) {
+      if (arr1[i] % arr2[i] == 0 && arr2[i] != 1) {
+        gameList.push(arr1[i] + " / " + arr2[i]);
+        answer.push(arr1[i] / arr2[i]);
+      } else if (arr1[i] >= arr2[i]) {
+        gameList.push(arr1[i] + " - " + arr2[i]);
+        answer.push(arr1[i] - arr2[i]);
+      } else {
+        if (i % 2) {
+          gameList.push(arr1[i] + " + " + arr2[i]);
+          answer.push(arr1[i] + arr2[i]);
+        } else {
+          gameList.push(arr1[i] + " * " + arr2[i]);
+          answer.push(arr1[i] * arr2[i]);
+        }
+      }
+    }
+  }
+  function game() {
+    if (query == "1") {
+      step1();
+    } else if (query == "2") {
+      step2();
+    } else if (query == "3") {
+      step3();
+    } else if (query == "4") {
+      step4();
+    } else {
+      step5();
+    }
+  }
+  game();
+
+  const randomNumber = (defaultNum: number) => {
+    return Array.from({ length: 11 }, (_, i) => {
+      if (i - 5 + defaultNum !== defaultNum) return i - 5 + defaultNum;
+    });
+  };
+
+  const readValue: any = (value: number[]) => {
+    return value;
+  };
+
+  function randomSort() {
+    return Math.random() - 0.5;
+  }
+
+  const question = gameList.map((item, index) => {
+    let arr = randomNumber(answer[index]).filter(readValue);
+    arr.sort(randomSort);
+
+    return {
+      q: item,
+      a: [arr[0], arr[1], answer[index]].sort((a, b) => {
+        a = a as number;
+        b = b as number;
+        return a - b;
+      }),
+      c: answer[index],
+    };
+  });
+
   return (
     <Page>
-      <SuccessPrompt></SuccessPrompt>
       <Header></Header>
       <MainDiv>
         <TextBox>
@@ -120,18 +192,23 @@ export default function GameArithmetic() {
         </BtnContainer>
         <QustionMainDiv>
           <p>연산식을 보고 아래 3개의 카드 중 정답을 선택해주세요</p>
-          <Cnt>1/10</Cnt>
-          <h1>3 + 4 = ?</h1>
+          <Cnt>
+            {cnt + 1}/{question.length}
+          </Cnt>
+          <h1>{question[cnt].q}</h1>
           <AnswerContainer>
-            <AnswerBlock>
-              <h1>5</h1>
-            </AnswerBlock>
-            <AnswerBlock>
-              <h1>5</h1>
-            </AnswerBlock>
-            <AnswerBlock>
-              <h1>5</h1>
-            </AnswerBlock>
+            {question[cnt].a.map((e) => (
+              <>
+                <AnswerBlock
+                  onClick={() => {
+                    if (e === question[cnt].c) setCnt(cnt + 1);
+                    else alert("");
+                  }}
+                >
+                  <h1>{e}</h1>
+                </AnswerBlock>
+              </>
+            ))}
           </AnswerContainer>
         </QustionMainDiv>
       </MainDiv>

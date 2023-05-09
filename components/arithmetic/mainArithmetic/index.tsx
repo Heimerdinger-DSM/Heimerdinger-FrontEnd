@@ -16,7 +16,7 @@ export default function MainArithmetic() {
           <h2>{index + 1 + "단계"}</h2>
           <p>{list}</p>
         </Text>
-        <Link href="/gameArithmetic">시작하기&gt;</Link>
+        <Link href={`/gameArithmetic?id=${index+1}`}>시작하기&gt;</Link>
       </Step>
     </Box>
   ));
