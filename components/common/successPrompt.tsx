@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-export default function successPrompt() {
+import React from "react";
+
+export default function successPrompt(props: any) {
   return (
     <MainDiv>
       <SubDiv>
@@ -12,7 +14,7 @@ export default function successPrompt() {
           <h1>
             랜덤 사칙연산
             <br />
-            n단계 성공을 축하합니다! 🥳
+            {props.message}단계 성공을 축하합니다! 🥳
           </h1>
           <p>are you got it?</p>
         </TextBox>
@@ -20,7 +22,7 @@ export default function successPrompt() {
           <Link href="/mainArithmetic">
             <Btn>다음 단계로</Btn>
           </Link>
-          <Link href="/main">
+          <Link href="/Main">
             <Btn>그만하기</Btn>
           </Link>
         </BtnContainer>
@@ -37,6 +39,7 @@ const MainDiv = styled.div`
   height: 570px;
   background: #fff;
   border-radius: 30px;
+  box-shadow: 0px 2.23px 4.46px rgba(0, 0, 0, 0.2);
 `;
 const SubDiv = styled.div`
   position: relative;
@@ -94,8 +97,6 @@ const Btn = styled.div`
   font-size: 27px;
   line-height: 36px;
   text-align: center;
-  color: #fff;
-  background: #7867bf;
 `;
 const BtnContainer = styled.div`
   width: 632px;
@@ -108,13 +109,15 @@ const BtnContainer = styled.div`
     text-decoration: none;
     div {
       padding-top: 19.5px;
-      &:first-child {
-      }
-      &:last-child {
-        color: #7867bf;
-        background: #fff;
-        border: 1.5px solid #7867bf;
-      }
+    }
+    &:first-child {
+      color: #fff;
+      background: #7867bf;
+    }
+    &:last-child {
+      color: #7867bf;
+      background: #fff;
+      border: 1.5px solid #7867bf;
     }
   }
 `;

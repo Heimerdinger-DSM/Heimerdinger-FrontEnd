@@ -6,13 +6,14 @@ import StopIcon from "@/components/common/icon/stopIcon";
 import SuccessPrompt from "@/components/common/successPrompt";
 import FailPrompt from "@/components/common/failPrompt";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import successPrompt from "@/components/common/successPrompt";
 
 export default function GameArithmetic() {
   const query: string = useRouter().query.id as string;
   const [cnt, setCnt] = useState<number>(0);
   const [flag, setFlag] = useState<boolean>(true);
-  let num: number = 9;
+  let num: number = 11;
   let arr1: number[] = [];
   let arr2: number[] = [];
   let gameList: string[] = [];
@@ -138,7 +139,6 @@ export default function GameArithmetic() {
     }
   }
   game();
-
   const randomNumber = (defaultNum: number) => {
     return Array.from({ length: 11 }, (_, i) => {
       if (i - 5 + defaultNum !== defaultNum) return i - 5 + defaultNum;
@@ -158,7 +158,7 @@ export default function GameArithmetic() {
     arr.sort(randomSort);
 
     return {
-      q: item,
+      q: item + " = ?",
       a: [arr[0], arr[1], answer[index]].sort((a, b) => {
         a = a as number;
         b = b as number;
@@ -172,12 +172,28 @@ export default function GameArithmetic() {
     <Page>
       <Header></Header>
       <MainDiv>
+        {cnt + 1 > 10 ? (
+          <>
+            {flag ? (
+              <SuccessPrompt message={query} />
+            ) : (
+              <FailPrompt message={query} />
+            )}
+          </>
+        ) : (
+          <></>
+        )}
         <TextBox>
-          <h1>랜덤 사칙연산 n단계</h1>
+          <h1>랜덤 사칙연산 {query}단계</h1>
           <p>한 자리 수 (+, -) 문제가 나옵니다.</p>
         </TextBox>
         <BtnContainer>
-          <Btn>
+          <Btn
+            onClick={() => {
+              setFlag(false);
+              setCnt(cnt + 1);
+            }}
+          >
             <SkipIcon></SkipIcon>
             <p>건너뛰기</p>
           </Btn>
@@ -192,20 +208,26 @@ export default function GameArithmetic() {
         </BtnContainer>
         <QustionMainDiv>
           <p>연산식을 보고 아래 3개의 카드 중 정답을 선택해주세요</p>
-          <Cnt>
-            {cnt + 1}/{question.length}
-          </Cnt>
+          <Cnt>{cnt + 1}/10</Cnt>
           <h1>{question[cnt].q}</h1>
           <AnswerContainer>
             {question[cnt].a.map((e) => (
               <>
                 <AnswerBlock
                   onClick={() => {
-                    if (e === question[cnt].c) setCnt(cnt + 1);
-                    else alert("");
+                    if (cnt + 1 === 10) {
+                      setCnt(cnt + 1);
+                    } else {
+                      if (e === question[cnt].c) {
+                        setCnt(cnt + 1);
+                      } else {
+                        setFlag(false);
+                        setCnt(cnt + 1);
+                      }
+                    }
                   }}
                 >
-                  <h1>{e}</h1>
+                  <div>{e}</div>
                 </AnswerBlock>
               </>
             ))}
@@ -249,12 +271,12 @@ const TextBox = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   gap: 15.63px;
-
   a {
     text-decoration: none;
   }
 `;
 const Btn = styled.div`
+  cursor: pointer;
   width: 234.4px;
   height: 60.3px;
   background: #ffffff;
@@ -309,7 +331,7 @@ const QustionMainDiv = styled.div`
     font-size: 71.65px;
     line-height: 87px;
     color: #222222;
-    width: 350px;
+    width: 400px;
     margin: 0 auto;
   }
 `;
@@ -332,19 +354,19 @@ const AnswerContainer = styled.div`
   width: 650px;
 `;
 const AnswerBlock = styled.div`
+  cursor: pointer;
   border: 2.4px solid #7867bf;
   border-radius: 9.55px;
   width: 155px;
   height: 155px;
-  h1 {
-    padding-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
     font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 59.71px;
-    text-align: center;
     color: #47467b;
-    width: 76.44px;
-    height: 72.85px;
   }
 `;

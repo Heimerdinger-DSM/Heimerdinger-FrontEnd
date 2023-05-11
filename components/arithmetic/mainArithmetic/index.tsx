@@ -3,11 +3,11 @@ import Link from "next/link";
 import Header from "@/components/common/header";
 export default function MainArithmetic() {
   const numList: string[] = [
-    "한 자리 수(+, -)",
-    "한 자리 수(+, -, *, /)",
-    "두 자리 수(+, -)",
+    "한 자리 수 (+, -)",
+    "한 자리 수 (+, -, *, /)",
+    "두 자리 수 (+, -)",
     "두 자리 수 (*, /) 한 자리 수",
-    "All 랜덤",
+    "두 자리 수 (+, -, *, /)",
   ];
   const boxList = numList.map((list, index) => (
     <Box key={index}>
