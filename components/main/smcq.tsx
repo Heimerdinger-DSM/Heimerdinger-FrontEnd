@@ -142,6 +142,7 @@ const SmcqQuestionQText = styled.p`
   color: ${theme.mainNavyColor};
   font-weight: 500;
   font-size: 18px;
+  text-align: center;
 `;
 const SmcqQuestionPurple = styled.div`
   width: 306px;
