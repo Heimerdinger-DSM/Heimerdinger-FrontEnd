@@ -16,7 +16,7 @@ export default function Game() {
     },
     {
       title: "AI 게임",
-      text: "AI를 통한 게임입니다.",
+      text: "AI를 통한 게임입니다.\n틱택토",
       link: "/login",
     },
   ];
