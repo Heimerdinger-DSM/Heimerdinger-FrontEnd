@@ -1,5 +1,6 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import Link from "next/link";
 
 export default function Smcq() {
   return (
@@ -16,7 +17,9 @@ export default function Smcq() {
               SMCQ를 기반으로 한<br />
               치매 자가진단 서비스를 만나보세요.
             </SmcqText>
-            <SmcqDetail>자세히보기&gt;</SmcqDetail>
+            <Link href="/smcq" style={{ textDecoration: "none" }}>
+              <SmcqDetail>자세히보기&gt;</SmcqDetail>
+            </Link>
           </SmcqTextBox>
           <SmcqQuestionBox>
             <SmcqQuestion>

@@ -1,21 +1,23 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import Link from "next/link";
 
 export default function Game() {
   const Item = [
     {
       title: "카드 뒤집기",
       text: "카드를 뒤집어 같은\n짝이 나오는 것을 찾는 게임입니다.",
+      link: "/mainCard",
     },
     {
       title: "랜덤 사칙연산",
-
       text: "랜덤으로 나오는 사칙연산 문제를\n계산하는 게임입니다.",
+      link: "/mainArithmetic",
     },
     {
       title: "AI 게임",
-
       text: "AI를 통한 게임입니다.",
+      link: "/login",
     },
   ];
   return (
@@ -31,15 +33,17 @@ export default function Game() {
           </GameInfoTextBox>
           <GameInfoItemList>
             {Item.map((arr, i) => (
-              <GameInfoItem>
-                <GameInfoItemTextBox>
-                  <GameInfoItemTextBoxTitle>
-                    <GameInfoItemTitle>{arr.title}</GameInfoItemTitle>
-                    <GameInfoItemArrow src="/img/main/GameRightArrow.png"></GameInfoItemArrow>
-                  </GameInfoItemTextBoxTitle>
-                  <GameInfoItemText>{arr.text}</GameInfoItemText>
-                </GameInfoItemTextBox>
-              </GameInfoItem>
+              <Link href={arr.link} style={{ textDecoration: "none" }}>
+                <GameInfoItem>
+                  <GameInfoItemTextBox>
+                    <GameInfoItemTextBoxTitle>
+                      <GameInfoItemTitle>{arr.title}</GameInfoItemTitle>
+                      <GameInfoItemArrow src="/img/main/GameRightArrow.png"></GameInfoItemArrow>
+                    </GameInfoItemTextBoxTitle>
+                    <GameInfoItemText>{arr.text}</GameInfoItemText>
+                  </GameInfoItemTextBox>
+                </GameInfoItem>
+              </Link>
             ))}
           </GameInfoItemList>
         </GameInfo>
@@ -89,11 +93,12 @@ const GameInfoItemList = styled.div`
 `;
 const GameInfoItem = styled.div`
   width: 280px;
-  height: 100%;
+  height: 280px;
   background-color: ${theme.whiteColor};
   display: flex;
   justify-content: center;
   border-radius: 20px;
+  color: ${theme.blackColor};
 `;
 const GameInfoItemTextBox = styled.div`
   width: 220px;

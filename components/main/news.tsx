@@ -1,22 +1,26 @@
 import { theme } from "@/styles/theme";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export default function News() {
   const heimerNewsItem = [
     {
-      img: "/img/main/HeimerNewsImg.png",
+      img: "https://blog.kakaocdn.net/dn/dQgYtU/btqVe8WNkSr/18o2eEG2sXHkZR3T2TZl81/img.png",
       title: "게시글 등록",
       text: "게시글을\n등록, 공유할 수 있어요.",
+      id: "1",
     },
     {
       img: "/img/main/HeimerNewsImg.png",
       title: "댓글 등록",
       text: "게시글에 댓글을\n등록할 수 있어요.",
+      id: "2",
     },
     {
       img: "/img/main/HeimerNewsImg.png",
       title: "소통 연계",
       text: "타 SNS와의 연계를 도와\n편하게 연락할 수 있어요.",
+      id: "3",
     },
   ];
   return (
@@ -33,7 +37,7 @@ export default function News() {
               </HeimerNewsTextBox>
               <HeimerNewsItemList>
                 {heimerNewsItem.map((arr, i) => (
-                  <HeimerNewsItem>
+                  <HeimerNewsItem id={arr.id}>
                     <HeimerNewsimg src={arr.img}></HeimerNewsimg>
                     <HeimerNewsItemListTextBox>
                       <HeimerNewsItemTitle>{arr.title}</HeimerNewsItemTitle>
@@ -89,9 +93,18 @@ const HeimerNewsItem = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   border: 1px solid #d5d5d5;
+  transition: 1s;
+
+  &:hover {
+    transform: translateY(-30px);
+  }
 `;
+
 const HeimerNewsimg = styled.img`
   width: 100%;
+  aspect-ratio: 1;
+  border-radius: 30px;
+  object-fit: contain;
 `;
 const HeimerNewsItemListTextBox = styled.div`
   display: flex;
