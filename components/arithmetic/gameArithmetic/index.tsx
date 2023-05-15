@@ -7,7 +7,6 @@ import SuccessPrompt from "@/components/common/successPrompt";
 import FailPrompt from "@/components/common/failPrompt";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import successPrompt from "@/components/common/successPrompt";
 
 export default function GameArithmetic() {
   const query: string = useRouter().query.id as string;
@@ -47,7 +46,7 @@ export default function GameArithmetic() {
     }
     for (let i = 0; arr1.length > i; i++) {
       if (arr1[i] % arr2[i] == 0 && arr2[i] != 1) {
-        gameList.push(arr1[i] + " / " + arr2[i]);
+        gameList.push(arr1[i] + " ÷ " + arr2[i]);
         answer.push(arr1[i] / arr2[i]);
       } else if (arr1[i] >= arr2[i]) {
         gameList.push(arr1[i] + " - " + arr2[i]);
@@ -57,7 +56,7 @@ export default function GameArithmetic() {
           gameList.push(arr1[i] + " + " + arr2[i]);
           answer.push(arr1[i] + arr2[i]);
         } else {
-          gameList.push(arr1[i] + " * " + arr2[i]);
+          gameList.push(arr1[i] + " × " + arr2[i]);
           answer.push(arr1[i] * arr2[i]);
         }
       }
@@ -65,9 +64,9 @@ export default function GameArithmetic() {
   }
   function step3() {
     while (num > 0) {
-      let numm1 = Math.floor(Math.random() * (99 - 1)) + 1;
+      let numm1 = Math.floor(Math.random() * (99 - 10)) + 10;
       arr1.push(numm1);
-      let numm2 = Math.floor(Math.random() * (99 - 1)) + 1;
+      let numm2 = Math.floor(Math.random() * (99 - 10)) + 10;
       arr2.push(numm2);
       num -= 1;
     }
@@ -83,7 +82,7 @@ export default function GameArithmetic() {
   }
   function step4() {
     while (num > 0) {
-      let numm1 = Math.floor(Math.random() * (99 - 1)) + 1;
+      let numm1 = Math.floor(Math.random() * (99 - 10)) + 10;
       arr1.push(numm1);
       let numm2 = Math.floor(Math.random() * (9 - 1)) + 1;
       arr2.push(numm2);
@@ -91,25 +90,25 @@ export default function GameArithmetic() {
     }
     for (let i = 0; arr1.length > i; i++) {
       if (arr1[i] % arr2[i] == 0) {
-        gameList.push(arr1[i] + " / " + arr2[i]);
+        gameList.push(arr1[i] + " ÷ " + arr2[i]);
         answer.push(arr1[i] / arr2[i]);
       } else {
-        gameList.push(arr1[i] + " * " + arr2[i]);
+        gameList.push(arr1[i] + " × " + arr2[i]);
         answer.push(arr1[i] * arr2[i]);
       }
     }
   }
   function step5() {
     while (num > 0) {
-      let numm1 = Math.floor(Math.random() * (99 - 1)) + 1;
+      let numm1 = Math.floor(Math.random() * (99 - 10)) + 10;
       arr1.push(numm1);
-      let numm2 = Math.floor(Math.random() * (99 - 1)) + 1;
+      let numm2 = Math.floor(Math.random() * (99 - 10)) + 10;
       arr2.push(numm2);
       num -= 1;
     }
     for (let i = 0; arr1.length > i; i++) {
       if (arr1[i] % arr2[i] == 0 && arr2[i] != 1) {
-        gameList.push(arr1[i] + " / " + arr2[i]);
+        gameList.push(arr1[i] + " ÷ " + arr2[i]);
         answer.push(arr1[i] / arr2[i]);
       } else if (arr1[i] >= arr2[i]) {
         gameList.push(arr1[i] + " - " + arr2[i]);
@@ -119,7 +118,7 @@ export default function GameArithmetic() {
           gameList.push(arr1[i] + " + " + arr2[i]);
           answer.push(arr1[i] + arr2[i]);
         } else {
-          gameList.push(arr1[i] + " * " + arr2[i]);
+          gameList.push(arr1[i] + " × " + arr2[i]);
           answer.push(arr1[i] * arr2[i]);
         }
       }
@@ -140,8 +139,8 @@ export default function GameArithmetic() {
   }
   game();
   const randomNumber = (defaultNum: number) => {
-    return Array.from({ length: 11 }, (_, i) => {
-      if (i - 5 + defaultNum !== defaultNum) return i - 5 + defaultNum;
+    return Array.from({ length: 31 }, (_, i) => {
+      if (i - 15 + defaultNum !== defaultNum) return i - 15 + defaultNum;
     });
   };
 
@@ -175,7 +174,7 @@ export default function GameArithmetic() {
         {cnt + 1 > 10 ? (
           <>
             {flag ? (
-              <SuccessPrompt message={query} />
+              <SuccessPrompt message={query} setCnt={setCnt} />
             ) : (
               <FailPrompt message={query} />
             )}

@@ -2,7 +2,13 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
 
-export default function successPrompt(props: any) {
+export default function successPrompt({
+  message,
+  setCnt,
+}: {
+  message: string;
+  setCnt: (value: number) => void;
+}) {
   return (
     <MainDiv>
       <SubDiv>
@@ -14,12 +20,21 @@ export default function successPrompt(props: any) {
           <h1>
             랜덤 사칙연산
             <br />
-            {props.message}단계 성공을 축하합니다! 🥳
+            {message}단계 성공을 축하합니다! 🥳
           </h1>
           <p>are you got it?</p>
         </TextBox>
         <BtnContainer>
-          <Link href="/mainArithmetic">
+          <Link
+            href={
+              parseInt(message) >= 5
+                ? `/gameArithmetic?id=${parseInt(message)}`
+                :   `/gameArithmetic?id=${parseInt(message) + 1}`
+            }
+            onClick={() => {
+              setCnt(0);
+            }}
+          >
             <Btn>다음 단계로</Btn>
           </Link>
           <Link href="/Main">
