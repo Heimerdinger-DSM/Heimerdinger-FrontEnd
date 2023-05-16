@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 export default function News() {
   const heimerNewsItem = [
     {
-      img: "https://blog.kakaocdn.net/dn/dQgYtU/btqVe8WNkSr/18o2eEG2sXHkZR3T2TZl81/img.png",
+      img: "/img/main/HeimerNewsImg.png",
       title: "게시글 등록",
       text: "게시글을\n등록, 공유할 수 있어요.",
       id: "1",
