@@ -1,0 +1,28 @@
+import { CardDocsType } from "@/util/interface/card/cardDocsType";
+
+export const cardItem: CardDocsType[] = [
+  { id: 1, item: "/img/card/Banana.png" },
+  { id: 2, item: "/img/card/Grapes.png" },
+  { id: 3, item: "/img/card/Tangerine.png" },
+  { id: 4, item: "/img/card/Watermelon.png" },
+  { id: 5, item: "/img/card/Peach.png" },
+  { id: 6, item: "/img/card/RedApple.png" },
+  { id: 7, item: "/img/card/Lemon.png" },
+  { id: 8, item: "/img/card/Kiwi.png" },
+  { id: 9, item: "/img/card/Cherries.png" },
+  { id: 10, item: "/img/card/Pineapple.png" },
+  { id: 11, item: "/img/card/Blueberries.png" },
+  { id: 12, item: "/img/card/GreenApple.png" },
+  { id: 13, item: "/img/card/HotPepper.png" },
+  { id: 14, item: "/img/card/Chestnut.png" },
+  { id: 15, item: "/img/card/Carrot.png" },
+  { id: 16, item: "/img/card/Avocado.png" },
+  { id: 17, item: "/img/card/Cucumber.png" },
+  { id: 18, item: "/img/card/Corn.png" },
+  { id: 19, item: "/img/card/Eggplant.png" },
+  { id: 20, item: "/img/card/Cheese.png" },
+  { id: 21, item: "/img/card/Coconut.png" },
+  { id: 22, item: "/img/card/SweetPotato.png" },
+  { id: 23, item: "/img/card/BellPepper.png" },
+  { id: 24, item: "/img/card/Tomato.png" },
+];
