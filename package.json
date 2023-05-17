@@ -25,6 +25,7 @@
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
     "tailwindcss": "3.3.1",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "use-interval": "^1.4.0"
   }
 }
