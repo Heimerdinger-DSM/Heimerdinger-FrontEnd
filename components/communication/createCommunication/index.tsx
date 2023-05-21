@@ -1,8 +1,14 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Header from "@/components/common/header";
+import { useState } from "react";
 
 export default function CreateCommunication() {
+  const districtList: string[] = ["중구", "동구", "서구", "유성구", "대덕구"];
+  const [flag, setFlag] = useState<boolean>(false);
+  // const district = districtList.map((list)=>(
+  //   <Tag>{list}</Tag>
+  // ))
   return (
     <Page>
       <Header></Header>
@@ -38,6 +44,26 @@ export default function CreateCommunication() {
           </div>
           <hr />
         </Writing>
+        <TagContainer>
+          {flag ? <Tag>중구</Tag>:<PointerTag>중구</PointerTag>}
+          <Tag>동구</Tag>
+          <Tag>서구</Tag>
+          <Tag>유성구</Tag>
+          <Tag>대덕구</Tag>
+        </TagContainer>
+        <TitleInput>
+          <h4>
+            제목<span>*</span>
+          </h4>
+          <input placeholder="글 제목을 입력해주세요." />
+        </TitleInput>
+        <ContentInput>
+          <h4>
+            내용<span>*</span>
+          </h4>
+          <input placeholder="글 내용을 입력해주세요." />
+        </ContentInput>
+        <CreateBtn>글 등록하기</CreateBtn>
       </MainDiv>
     </Page>
   );
@@ -73,7 +99,7 @@ const TextDiv = styled.div`
 `;
 const Writing = styled.div`
   width: 100%;
-  margin-top: 84px;
+  margin-top: 74px;
   div {
     height: 49px;
     display: flex;
@@ -118,12 +144,11 @@ const SmallInputContainer = styled.div`
 `;
 const SmallInput = styled.div`
   width: 50%;
-
   h4 {
     font-family: "Inter";
     font-style: normal;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 19px;
     color: #222222;
   }
@@ -135,8 +160,87 @@ const SmallInput = styled.div`
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     margin-top: 10px;
+    padding-left: 20px;
+
     ::placeholder {
-      padding-left: 25px;
+      font-size: 16px;
     }
   }
+`;
+const TagContainer = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-top: 35px;
+`;
+const Tag = styled.div`
+  width: 80px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px 12px 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #4e5059;
+`;
+const PointerTag = styled(Tag)`
+  background: #7867bf;
+  color: #fff;
+  border-radius: 12px 12px 4px 12px;
+`;
+const TitleInput = styled.div`
+  width: 100%;
+  height: 90px;
+  margin-top: 30px;
+  h4 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 19px;
+    color: #222;
+    span {
+      color: #d80000;
+    }
+  }
+  input {
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    margin-top: 10px;
+    padding-left: 20px;
+
+    ::placeholder {
+      font-size: 17px;
+    }
+  }
+`;
+const ContentInput = styled(TitleInput)`
+  width: 100%;
+  height: 359px;
+  padding-top: 40px;
+  input {
+    height: 330px;
+    padding-bottom: 255px;
+  }
+`;
+const CreateBtn = styled.div`
+  width: 400px;
+  height: 60px;
+  background: #7867bf;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  margin: 100px auto;
 `;
