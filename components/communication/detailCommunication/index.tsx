@@ -192,6 +192,7 @@ const CommentsInputDiv = styled.div`
     font-size: 18px;
     line-height: 22px;
     color: #ffffff;
+    cursor: pointer;
   }
 `;
 const CommentsContainer = styled.div`

@@ -364,6 +364,7 @@ export default function MainCommunication() {
           </StickBarContainer>
         )}
       </MainDiv>
+      <Footer></Footer>
     </Page>
   );
 }
@@ -411,6 +412,7 @@ const SortBtnContainer = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #ffffff;
+    cursor: pointer;
   }
 `;
 
@@ -436,6 +438,7 @@ const SortBtn = styled.div`
   margin-top: 8px;
   display: flex;
   gap: 20px;
+  cursor: pointer;
 `;
 const StickBarContainer = styled.div`
   padding-top: 48px;
@@ -594,3 +597,7 @@ const TextContainer = styled.div`
     top: 18px;
   }
 `;
+const Footer = styled.div`
+  width: 100%;
+  height: 100px;
+`

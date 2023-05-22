@@ -1,14 +1,28 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Header from "@/components/common/header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CreateCommunication() {
   const districtList: string[] = ["중구", "동구", "서구", "유성구", "대덕구"];
-  const [flag, setFlag] = useState<boolean>(false);
-  // const district = districtList.map((list)=>(
-  //   <Tag>{list}</Tag>
-  // ))
+  const [flag, setFlag] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const district = districtList.map((list, i) => (
+    <div
+      key={i}
+      onClick={() => {
+        setFlag(flag.map((e, idx) => i === idx));
+      }}
+    >
+      {flag[i] ? <PointerTag>{list}</PointerTag> : <Tag>{list}</Tag>}
+    </div>
+  ));
   return (
     <Page>
       <Header></Header>
@@ -45,11 +59,7 @@ export default function CreateCommunication() {
           <hr />
         </Writing>
         <TagContainer>
-          {flag ? <Tag>중구</Tag>:<PointerTag>중구</PointerTag>}
-          <Tag>동구</Tag>
-          <Tag>서구</Tag>
-          <Tag>유성구</Tag>
-          <Tag>대덕구</Tag>
+          {district}
         </TagContainer>
         <TitleInput>
           <h4>
@@ -65,6 +75,7 @@ export default function CreateCommunication() {
         </ContentInput>
         <CreateBtn>글 등록하기</CreateBtn>
       </MainDiv>
+      <Footer></Footer>
     </Page>
   );
 }
@@ -185,6 +196,7 @@ const Tag = styled.div`
   font-size: 16px;
   line-height: 19px;
   color: #4e5059;
+  cursor: pointer;
 `;
 const PointerTag = styled(Tag)`
   background: #7867bf;
@@ -242,5 +254,10 @@ const CreateBtn = styled.div`
   font-size: 18px;
   line-height: 22px;
   color: #ffffff;
-  margin: 100px auto;
+  margin: 100px auto 0;
+  cursor: pointer;
+`;
+const Footer = styled.div`
+  width: 100%;
+  height: 100px;
 `;
