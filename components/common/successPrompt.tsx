@@ -29,7 +29,7 @@ export default function successPrompt({
             href={
               parseInt(message) >= 5
                 ? `/gameArithmetic?id=${parseInt(message)}`
-                :   `/gameArithmetic?id=${parseInt(message) + 1}`
+                : `/gameArithmetic?id=${parseInt(message) + 1}`
             }
             onClick={() => {
               setCnt(0);
@@ -37,7 +37,7 @@ export default function successPrompt({
           >
             <Btn>다음 단계로</Btn>
           </Link>
-          <Link href="/Main">
+          <Link href="/mainArithmetic">
             <Btn>그만하기</Btn>
           </Link>
         </BtnContainer>

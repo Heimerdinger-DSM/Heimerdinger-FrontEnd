@@ -1,6 +1,14 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-export default function failPrompt(props: any) {
+import React from "react";
+
+export default function failPrompt({
+  message,
+  setCnt,
+}: {
+  message: string;
+  setCnt: (value: number) => void;
+}) {
   return (
     <MainDiv>
       <SubDiv>
@@ -12,15 +20,20 @@ export default function failPrompt(props: any) {
           <h1>
             랜덤 사칙연산
             <br />
-            {props.message}단계 도전 실패 하셨습니다. 😭
+            {message}단계 도전 실패 하셨습니다. 😭
           </h1>
           <p>are you got it?</p>
         </TextBox>
         <BtnContainer>
-          <Link href="/mainArithmetic">
+          <Link
+            href={`/gameArithmetic?id=${parseInt(message)}`}
+            onClick={() => {
+              setCnt(0);
+            }}
+          >
             <Btn>다시하기</Btn>
           </Link>
-          <Link href="/main">
+          <Link href="/mainArithmetic">
             <Btn>그만하기</Btn>
           </Link>
         </BtnContainer>
@@ -108,13 +121,13 @@ const BtnContainer = styled.div`
       padding-top: 19.5px;
     }
     &:first-child {
-        color: #fff;
-        background: #7867bf;
-      }
-      &:last-child {
-        color: #7867bf;
-        background: #fff;
-        border: 1.5px solid #7867bf;
-      }
+      color: #fff;
+      background: #7867bf;
+    }
+    &:last-child {
+      color: #7867bf;
+      background: #fff;
+      border: 1.5px solid #7867bf;
+    }
   }
 `;

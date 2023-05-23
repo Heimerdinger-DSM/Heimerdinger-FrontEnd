@@ -176,7 +176,7 @@ export default function GameArithmetic() {
             {flag ? (
               <SuccessPrompt message={query} setCnt={setCnt} />
             ) : (
-              <FailPrompt message={query} />
+              <FailPrompt message={query} setCnt={setCnt}/>
             )}
           </>
         ) : (
