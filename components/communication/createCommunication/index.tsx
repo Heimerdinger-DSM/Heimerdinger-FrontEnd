@@ -58,9 +58,7 @@ export default function CreateCommunication() {
           </div>
           <hr />
         </Writing>
-        <TagContainer>
-          {district}
-        </TagContainer>
+        <TagContainer>{district}</TagContainer>
         <TitleInput>
           <h4>
             제목<span>*</span>
@@ -71,7 +69,7 @@ export default function CreateCommunication() {
           <h4>
             내용<span>*</span>
           </h4>
-          <input placeholder="글 내용을 입력해주세요." />
+          <textarea placeholder="글 내용을 입력해주세요." />
         </ContentInput>
         <CreateBtn>글 등록하기</CreateBtn>
       </MainDiv>
@@ -230,6 +228,10 @@ const TitleInput = styled.div`
 
     ::placeholder {
       font-size: 17px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      line-height: 19px;
     }
   }
 `;
@@ -237,9 +239,22 @@ const ContentInput = styled(TitleInput)`
   width: 100%;
   height: 359px;
   padding-top: 40px;
-  input {
+  textarea {
+    width: 100%;
     height: 330px;
-    padding-bottom: 255px;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 20px;
+    ::placeholder {
+      font-size: 17px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 17px;
+    }
   }
 `;
 const CreateBtn = styled.div`

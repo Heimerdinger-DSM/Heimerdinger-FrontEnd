@@ -14,7 +14,9 @@ export default function MainCommunication() {
   const [flag, setFlag] = useState<boolean>(true);
   const [star, setStar] = useState<boolean>(true);
   const router = useRouter();
-
+  const clickEvent = (e:any) => {
+    e.stopPropagation();
+  };
   return (
     <Page>
       <Header></Header>
@@ -69,8 +71,9 @@ export default function MainCommunication() {
                   <h1>하이머딩거 프젝 화이팅입니다.</h1>
                   <Image
                     src={star ? StarBlack : StarYellow}
-                    onClick={() => {
+                    onClick={(e) => {
                       setStar(!star);
+                      clickEvent(e)
                     }}
                     alt=""
                   />
@@ -371,7 +374,7 @@ export default function MainCommunication() {
   );
 }
 const Page = styled.div`
-  width: 100vw;
+  width: 100%;
   background: #f9fafb;
   height: 100%;
 `;

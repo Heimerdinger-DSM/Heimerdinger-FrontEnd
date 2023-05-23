@@ -38,7 +38,7 @@ export default function DetailCommunication() {
         </ContentsDiv>
         <CommentsInputDiv>
           <h4>2개의 댓글이 있습니다.</h4>
-          <input type="text" placeholder="댓글을 입력해주세요." />
+          <textarea placeholder="댓글을 입력해주세요." />
           <button>댓글 등록</button>
         </CommentsInputDiv>
         <CommentsContainer>
@@ -172,7 +172,7 @@ const CommentsInputDiv = styled.div`
     line-height: 22px;
     color: #222222;
   }
-  input {
+  textarea {
     background: #ffffff;
     width: 100%;
     height: 140px;
@@ -180,8 +180,7 @@ const CommentsInputDiv = styled.div`
     border-radius: 10px;
     margin-top: 25px;
     display: block;
-    padding-bottom: 70px;
-    padding-left: 20px;
+    padding: 20px;
     ::placeholder {
       font-family: "Inter";
       font-style: normal;
