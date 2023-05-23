@@ -59,9 +59,11 @@ export default function MainCommunication() {
         </SortBtnContainer>
         {flag ? (
           <BoxContainer>
-            <Box onClick={()=>{
-              router.push("/detailCommunication")
-            }}>
+            <Box
+              onClick={() => {
+                router.push("/detailCommunication");
+              }}
+            >
               <BoxDiv>
                 <TextContainer>
                   <h1>하이머딩거 프젝 화이팅입니다.</h1>
@@ -205,7 +207,7 @@ export default function MainCommunication() {
                 <TagDiv>중구</TagDiv>
               </BoxDiv>
             </Box>
-            <Box >
+            <Box>
               <BoxDiv>
                 <TextContainer>
                   <h1>하이머딩거 프젝 화이팅입니다.</h1>
@@ -457,6 +459,8 @@ const StickBar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 30px;
+  cursor: pointer;
+
   > div {
     display: inline-flex;
   }
@@ -523,6 +527,7 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const BoxDiv = styled.div`
   width: 220px;
@@ -600,4 +605,4 @@ const TextContainer = styled.div`
 const Footer = styled.div`
   width: 100%;
   height: 100px;
-`
+`;

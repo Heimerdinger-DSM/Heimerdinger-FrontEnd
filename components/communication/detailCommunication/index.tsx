@@ -57,6 +57,21 @@ export default function DetailCommunication() {
             </h4>
             <hr/>
           </CommentsBox>
+          <CommentsBox>
+            <p>
+              <span>파꽃공주님</span> jungae34
+              <br />
+              2023.03.21
+            </p>
+            <h4>
+              벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에
+              내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해
+              동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서
+              방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고
+              깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.
+            </h4>
+            <hr/>
+          </CommentsBox>
         </CommentsContainer>
         <Footer></Footer>
       </MainDiv>
@@ -201,6 +216,7 @@ const CommentsContainer = styled.div`
 const CommentsBox = styled.div`
   width: 100%;
   height: 160px;
+  margin-bottom: 80px;
   p {
     font-family: "Inter";
     font-style: normal;
@@ -228,5 +244,5 @@ const CommentsBox = styled.div`
 `;
 const Footer = styled.div`
   width: 100%;
-  height: 130px;
+  height: 70px;
 `
