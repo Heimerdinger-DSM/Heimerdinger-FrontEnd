@@ -78,7 +78,7 @@ export default function CreateCommunication() {
   );
 }
 const Page = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background-color: #f9fafb;
 `;
@@ -170,7 +170,9 @@ const SmallInput = styled.div`
     border-radius: 8px;
     margin-top: 10px;
     padding-left: 20px;
-
+    font-size: 16px;
+    font-family: "Inter";
+    font-style: normal;
     ::placeholder {
       font-size: 16px;
     }
@@ -225,7 +227,9 @@ const TitleInput = styled.div`
     border-radius: 8px;
     margin-top: 10px;
     padding-left: 20px;
-
+    font-size: 18px;
+    font-family: "Inter";
+    font-style: normal;
     ::placeholder {
       font-size: 17px;
       font-family: "Inter";
@@ -248,6 +252,9 @@ const ContentInput = styled(TitleInput)`
     border-radius: 8px;
     margin-top: 10px;
     padding: 20px;
+    font-size: 18px;
+    font-family: "Inter";
+    font-style: normal;
     ::placeholder {
       font-size: 17px;
       font-family: "Inter";

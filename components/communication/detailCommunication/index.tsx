@@ -55,7 +55,7 @@ export default function DetailCommunication() {
               방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고
               깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.
             </h4>
-            <hr/>
+            <hr />
           </CommentsBox>
           <CommentsBox>
             <p>
@@ -70,7 +70,7 @@ export default function DetailCommunication() {
               방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고
               깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.
             </h4>
-            <hr/>
+            <hr />
           </CommentsBox>
         </CommentsContainer>
         <Footer></Footer>
@@ -181,6 +181,10 @@ const CommentsInputDiv = styled.div`
     margin-top: 25px;
     display: block;
     padding: 20px;
+    font-family: "Inter";
+    font-style: normal;
+
+    font-size: 16px;
     ::placeholder {
       font-family: "Inter";
       font-style: normal;
@@ -244,4 +248,4 @@ const CommentsBox = styled.div`
 const Footer = styled.div`
   width: 100%;
   height: 70px;
-`
+`;

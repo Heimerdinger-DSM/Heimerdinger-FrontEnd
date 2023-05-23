@@ -14,7 +14,7 @@ export default function MainCommunication() {
   const [flag, setFlag] = useState<boolean>(true);
   const [star, setStar] = useState<boolean>(true);
   const router = useRouter();
-  const clickEvent = (e:any) => {
+  const clickEvent = (e: any) => {
     e.stopPropagation();
   };
   return (
@@ -37,9 +37,15 @@ export default function MainCommunication() {
           <Right>
             <select>
               <option>전체</option>
+              <option>중구</option>
+              <option>동구</option>
+              <option>서구</option>
+              <option>유성구</option>
+              <option>대덕구</option>
             </select>
             <select>
               <option>최신순</option>
+              <option>인기순</option>
             </select>
             <SortBtn>
               <div
@@ -73,7 +79,7 @@ export default function MainCommunication() {
                     src={star ? StarBlack : StarYellow}
                     onClick={(e) => {
                       setStar(!star);
-                      clickEvent(e)
+                      clickEvent(e);
                     }}
                     alt=""
                   />
@@ -426,7 +432,8 @@ const Right = styled.div`
   float: right;
   gap: 30px;
   select {
-    border: #eaeaea;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
     width: 120px;
     height: 44px;
     text-align: center;
