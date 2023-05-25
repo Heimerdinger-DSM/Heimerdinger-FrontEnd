@@ -2,9 +2,11 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import Header from "@/components/common/header";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function CreateCommunication() {
   const districtList: string[] = ["중구", "동구", "서구", "유성구", "대덕구"];
+  const router = useRouter();
   const [flag, setFlag] = useState<boolean[]>([
     false,
     false,
@@ -71,7 +73,13 @@ export default function CreateCommunication() {
           </h4>
           <textarea placeholder="글 내용을 입력해주세요." />
         </ContentInput>
-        <CreateBtn>글 등록하기</CreateBtn>
+        <CreateBtn
+          onClick={() => {
+            router.push("/mainCommunication");
+          }}
+        >
+          글 등록하기
+        </CreateBtn>
       </MainDiv>
       <Footer></Footer>
     </Page>
