@@ -71,6 +71,10 @@ const Box = styled.div`
   padding-left: 33px;
   margin: 0;
   position: relative;
+  transition: .4s;
+  &:hover {
+    transform: translateY(-10px);
+  }
 `;
 const Step = styled.div`
   a {
