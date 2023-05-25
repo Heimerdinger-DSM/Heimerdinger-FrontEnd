@@ -176,7 +176,7 @@ export default function GameArithmetic() {
             {flag ? (
               <SuccessPrompt message={query} setCnt={setCnt} />
             ) : (
-              <FailPrompt message={query} setCnt={setCnt}/>
+              <FailPrompt message={query} setCnt={setCnt} />
             )}
           </>
         ) : (
@@ -361,11 +361,18 @@ const AnswerBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.4s ease-in-out;
   div {
     font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 59.71px;
     color: #47467b;
+  }
+  &:hover {
+    background-color: #7867bf;
+    div {
+      color: #fff;
+    }
   }
 `;
