@@ -13,9 +13,169 @@ import { useRouter } from "next/router";
 export default function MainCommunication() {
   const [flag, setFlag] = useState<boolean>(true);
   const [star, setStar] = useState<boolean>(true);
+  const [filterParam, setFilterParam] = useState<string>("전체");
   const router = useRouter();
-  const clickEvent = (e: any) => {
+
+  interface writingProps {
+    title: string;
+    tag: string;
+    content: string;
+    user: string;
+    id: string;
+    starCnt: number;
+  }
+
+  const writing: writingProps[] = [
+    {
+      title: "하이머딩거 프젝 화이팅입니다.",
+      tag: "중구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "아파죽겠네.",
+      tag: "서구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "집가고싶다.",
+      tag: "동구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "피곤해",
+      tag: "동구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "숨쉬는 것도 힘들다",
+      tag: "대덕구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "기침 좀 멈춰라",
+      tag: "유성구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+    {
+      title: "몸에 힘이 안 들어간다",
+      tag: "동구",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에 내려가 살 때다. 서울왔다 가는 길에...",
+      user: "파꽃공주",
+      id: "jungae34",
+      starCnt: 10,
+    },
+  ];
+  function filtering(e: string) {
+    const a = writing.filter((word) => word.tag === e);
+    return a;
+  }
+  const clickEvent = (e: React.MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const ContentDiv = ({ list }: { list: writingProps }) => {
+    return (
+      <Box
+        onClick={() => {
+          router.push("/detailCommunication");
+        }}
+      >
+        <BoxDiv>
+          <TextContainer>
+            <h1>{list.title}</h1>
+            <Image
+              src={star ? StarBlack : StarYellow}
+              onClick={(e) => {
+                setStar(!star);
+                clickEvent(e);
+              }}
+              alt=""
+            />
+            <p>{list.starCnt}</p>
+          </TextContainer>
+          <p>
+            {`${list.user}님 `}
+            <span>{list.id}</span>
+          </p>
+          <h3>{list.content}</h3>
+          <h4>2023.03.21</h4>
+          <TagDiv>{list.tag}</TagDiv>
+        </BoxDiv>
+      </Box>
+    );
+  };
+  const ContentDiv2 = ({ list }: { list: writingProps }) => {
+    return (
+      <StickBar>
+        <div>
+          <TagDiv>{list.tag}</TagDiv>
+          <h3>{list.title}</h3>
+        </div>
+        <RightContainer>
+          <p>
+            {`${list.user}님 `}
+            <span>{list.id}</span>
+          </p>
+          <h4>2023.03.21</h4>
+          <Image
+            src={star ? StarBlack : StarYellow}
+            onClick={() => {
+              setStar(!star);
+            }}
+            alt=""
+          />
+        </RightContainer>
+      </StickBar>
+    );
+  };
+  const writingList = () => {
+    return (
+      <>
+        {filterParam === "전체"
+          ? writing.map((list, index) => <ContentDiv key={index} list={list} />)
+          : filtering(filterParam).map((list, index) => (
+              <ContentDiv key={index} list={list} />
+            ))}
+      </>
+    );
+  };
+  const writingList2 = () => {
+    return (
+      <>
+        {filterParam === "전체"
+          ? writing.map((list, index) => (
+              <ContentDiv2 key={index} list={list} />
+            ))
+          : filtering(filterParam).map((list, index) => (
+              <ContentDiv2 key={index} list={list} />
+            ))}
+      </>
+    );
   };
   return (
     <Page>
@@ -35,7 +195,11 @@ export default function MainCommunication() {
             <PlusIcon></PlusIcon> 글 작성하기
           </button>
           <Right>
-            <select>
+            <select
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+            >
               <option>전체</option>
               <option>중구</option>
               <option>동구</option>
@@ -66,313 +230,9 @@ export default function MainCommunication() {
           </Right>
         </SortBtnContainer>
         {flag ? (
-          <BoxContainer>
-            <Box
-              onClick={() => {
-                router.push("/detailCommunication");
-              }}
-            >
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={(e) => {
-                      setStar(!star);
-                      clickEvent(e);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-            <Box>
-              <BoxDiv>
-                <TextContainer>
-                  <h1>하이머딩거 프젝 화이팅입니다.</h1>
-                  <Image
-                    src={star ? StarBlack : StarYellow}
-                    onClick={() => {
-                      setStar(!star);
-                    }}
-                    alt=""
-                  />
-                  <p>10</p>
-                </TextContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h3>
-                  벌써 40여 년 전이다. 내가 갓 세간난지 얼마 안 돼서 의정부에
-                  내려가 살 때다. 서울왔다 가는 길에...
-                </h3>
-                <h4>2023.03.21</h4>
-                <TagDiv>중구</TagDiv>
-              </BoxDiv>
-            </Box>
-          </BoxContainer>
+          <BoxContainer>{writingList()}</BoxContainer>
         ) : (
-          <StickBarContainer>
-            <StickBar>
-              <div>
-                <TagDiv>중구</TagDiv>
-                <h3>하이머딩거 프젝 화이팅입니다.</h3>
-              </div>
-              <RightContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h4>2023.03.21</h4>
-                <Image
-                  src={star ? StarBlack : StarYellow}
-                  onClick={() => {
-                    setStar(!star);
-                  }}
-                  alt=""
-                />
-              </RightContainer>
-            </StickBar>
-            <StickBar>
-              <div>
-                <TagDiv>중구</TagDiv>
-                <h3>하이머딩거 프젝 화이팅입니다.</h3>
-              </div>
-              <RightContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h4>2023.03.21</h4>
-                <Image
-                  src={star ? StarBlack : StarYellow}
-                  onClick={() => {
-                    setStar(!star);
-                  }}
-                  alt=""
-                />
-              </RightContainer>
-            </StickBar>
-            <StickBar>
-              <div>
-                <TagDiv>중구</TagDiv>
-                <h3>하이머딩거 프젝 화이팅입니다.</h3>
-              </div>
-              <RightContainer>
-                <p>
-                  파꽃공주님 <span>jungae34</span>
-                </p>
-                <h4>2023.03.21</h4>
-                <Image
-                  src={star ? StarBlack : StarYellow}
-                  onClick={() => {
-                    setStar(!star);
-                  }}
-                  alt=""
-                />
-              </RightContainer>
-            </StickBar>
-          </StickBarContainer>
+          <StickBarContainer>{writingList2()}</StickBarContainer>
         )}
       </MainDiv>
       <Footer></Footer>
