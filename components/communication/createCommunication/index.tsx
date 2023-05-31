@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Header from "@/components/common/header";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 
 export default function CreateCommunication() {
@@ -14,6 +14,20 @@ export default function CreateCommunication() {
     false,
     false,
   ]);
+  const [snsLink, setSnsLink] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
+  const [isTitle, setIsTitle] = useState<boolean>(false);
+  const [isContent, setIsContent] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [isSnsLink, setIsSnsLink] = useState<boolean>(false);
+
+  const [titleMessage, setTitleMessage] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [contentMessage, setContentMessage] = useState<string>("");
+  const [snsLinkMessage, setSnsLinkMessage] = useState<string>("");
 
   const district = districtList.map((list, i) => (
     <div
@@ -25,6 +39,65 @@ export default function CreateCommunication() {
       {flag[i] ? <PointerTag>{list}</PointerTag> : <Tag>{list}</Tag>}
     </div>
   ));
+  const onChangeTitle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTitle(e.target.value);
+      if (e.target.value.length < 1 || e.target.value.length > 20) {
+        setTitleMessage("1글자 이상 20글자 이하로 입력해주세요.");
+        setIsTitle(false);
+      } else {
+        setTitleMessage("올바른 제목 형식입니다 :)");
+        setIsTitle(true);
+      }
+    },
+    []
+  );
+  const onChangeContent = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+      if (e.target.value.length < 1 || e.target.value.length > 255) {
+        setContentMessage("1글자 이상 255글자 이하로 입력해주세요.");
+        setIsContent(false);
+      } else {
+        setContentMessage("올바른 내용 형식입니다 :)");
+        setIsContent(true);
+      }
+    },
+    []
+  );
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const emailRegex =
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      const emailCurrent = e.target.value;
+      setEmail(emailCurrent);
+
+      if (!emailRegex.test(emailCurrent)) {
+        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setIsEmail(false);
+      } else {
+        setEmailMessage("올바른 이메일 형식이에요 : )");
+        setIsEmail(true);
+      }
+    },
+    []
+  );
+  const onChangeSnsLink = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const snsLinkRegex = /^(https?:\/\/)?(www\.)?([^\s./]+\.?)+(\/[^\s]*)?$/;
+      const snsLinkCurrent = e.target.value;
+      setSnsLink(snsLinkCurrent);
+
+      if (!snsLinkRegex.test(snsLinkCurrent)) {
+        setSnsLinkMessage("Link 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setIsSnsLink(false);
+      } else {
+        setSnsLinkMessage("올바른 Link 형식이에요 : )");
+        setIsSnsLink(true);
+      }
+    },
+    []
+  );
   return (
     <Page>
       <Header></Header>
@@ -45,11 +118,31 @@ export default function CreateCommunication() {
         <SmallInputContainer>
           <SmallInput>
             <h4>SNS 링크</h4>
-            <input placeholder="연락할 수 있는 SNS 링크를 입력해주세요." />
+            <input
+              placeholder="연락할 수 있는 SNS 링크를 입력해주세요."
+              onChange={(e) => {
+                onChangeSnsLink(e);
+              }}
+            />
+            {snsLink.length > 0 && (
+              <span className={`message ${isSnsLink ? "success" : "error"}`}>
+                {snsLinkMessage}
+              </span>
+            )}
           </SmallInput>
           <SmallInput>
             <h4>이메일</h4>
-            <input placeholder="이메일 주소를 입력해주세요." />
+            <input
+              placeholder="이메일 주소를 입력해주세요."
+              onChange={(e) => {
+                onChangeEmail(e);
+              }}
+            />
+            {email.length > 0 && (
+              <span className={`message ${isEmail ? "success" : "error"}`}>
+                {emailMessage}
+              </span>
+            )}
           </SmallInput>
         </SmallInputContainer>
         <Writing>
@@ -65,17 +158,45 @@ export default function CreateCommunication() {
           <h4>
             제목<span>*</span>
           </h4>
-          <input placeholder="글 제목을 입력해주세요." />
+          <input
+            placeholder="글 제목을 입력해주세요."
+            onChange={(e) => {
+              onChangeTitle(e);
+            }}
+            required
+          />
+          {title.length > 0 && (
+            <span className={`message ${isTitle ? "success" : "error"}`}>
+              {titleMessage}
+            </span>
+          )}
         </TitleInput>
         <ContentInput>
           <h4>
             내용<span>*</span>
           </h4>
-          <textarea placeholder="글 내용을 입력해주세요." />
+          <textarea
+            placeholder="글 내용을 입력해주세요."
+            onChange={(e) => {
+              onChangeContent(e);
+            }}
+            required
+          />
+          {content.length > 0 && (
+            <span className={`message ${isContent ? "success" : "error"}`}>
+              {contentMessage}
+            </span>
+          )}
         </ContentInput>
         <CreateBtn
+          type="submit"
           onClick={() => {
-            router.push("/mainCommunication");
+            if (flag.includes(true) && isContent && isTitle) {
+              router.push("/mainCommunication");
+            }
+            else{
+              alert("제대로 채워")
+            }
           }}
         >
           글 등록하기
@@ -272,7 +393,7 @@ const ContentInput = styled(TitleInput)`
     }
   }
 `;
-const CreateBtn = styled.div`
+const CreateBtn = styled.button`
   width: 400px;
   height: 60px;
   background: #7867bf;

@@ -14,6 +14,15 @@ export default function MainCommunication() {
   const [flag, setFlag] = useState<boolean>(true);
   const [star, setStar] = useState<boolean>(true);
   const [filterParam, setFilterParam] = useState<string>("전체");
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const handleImageClick = (id: any) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
   const router = useRouter();
 
   interface writingProps {
@@ -23,6 +32,7 @@ export default function MainCommunication() {
     user: string;
     id: string;
     starCnt: number;
+    key: string;
   }
 
   const writing: writingProps[] = [
@@ -34,6 +44,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image1",
     },
     {
       title: "아파죽겠네.",
@@ -43,6 +54,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image2",
     },
     {
       title: "집가고싶다.",
@@ -52,6 +64,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image3",
     },
     {
       title: "피곤해",
@@ -61,6 +74,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image4",
     },
     {
       title: "숨쉬는 것도 힘들다",
@@ -70,6 +84,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image5",
     },
     {
       title: "기침 좀 멈춰라",
@@ -79,6 +94,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image6",
     },
     {
       title: "몸에 힘이 안 들어간다",
@@ -88,6 +104,7 @@ export default function MainCommunication() {
       user: "파꽃공주",
       id: "jungae34",
       starCnt: 10,
+      key: "image7",
     },
   ];
   function filtering(e: string) {
@@ -109,10 +126,12 @@ export default function MainCommunication() {
           <TextContainer>
             <h1>{list.title}</h1>
             <Image
-              src={star ? StarBlack : StarYellow}
+              key={list.key}
+              src={selectedIds.includes(list.key) ? StarYellow : StarBlack}
               onClick={(e) => {
                 setStar(!star);
                 clickEvent(e);
+                handleImageClick(list.key);
               }}
               alt=""
             />
