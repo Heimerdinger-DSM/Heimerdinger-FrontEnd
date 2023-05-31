@@ -35,7 +35,7 @@ export default function MainCommunication() {
     key: string;
   }
 
-  const writing: writingProps[] = [
+  const [writing, setWriting] = useState<writingProps[]>([
     {
       title: "하이머딩거 프젝 화이팅입니다.",
       tag: "중구",
@@ -106,7 +106,7 @@ export default function MainCommunication() {
       starCnt: 10,
       key: "image7",
     },
-  ];
+  ]);
   function filtering(e: string) {
     const a = writing.filter((word) => word.tag === e);
     return a;
@@ -114,7 +114,6 @@ export default function MainCommunication() {
   const clickEvent = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
-
   const ContentDiv = ({ list }: { list: writingProps }) => {
     return (
       <Box
@@ -132,6 +131,13 @@ export default function MainCommunication() {
                 setStar(!star);
                 clickEvent(e);
                 handleImageClick(list.key);
+                setWriting((prevWriting) => {
+                  const updatedWriting = [...prevWriting];
+                  selectedIds.includes(list.key)
+                      ? (list.starCnt -= 1 / 2)
+                      : (list.starCnt += 1 / 2);
+                  return updatedWriting;
+                });
               }}
               alt=""
             />
@@ -162,9 +168,13 @@ export default function MainCommunication() {
           </p>
           <h4>2023.03.21</h4>
           <Image
-            src={star ? StarBlack : StarYellow}
-            onClick={() => {
+            key={list.key}
+            src={selectedIds.includes(list.key) ? StarYellow : StarBlack}
+            onClick={(e) => {
               setStar(!star);
+              clickEvent(e);
+              handleImageClick(list.key);
+              list.starCnt + 1;
             }}
             alt=""
           />

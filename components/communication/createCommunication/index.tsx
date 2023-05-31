@@ -5,15 +5,6 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 
 export default function CreateCommunication() {
-  const districtList: string[] = ["중구", "동구", "서구", "유성구", "대덕구"];
-  const router = useRouter();
-  const [flag, setFlag] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
   const [snsLink, setSnsLink] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -28,6 +19,16 @@ export default function CreateCommunication() {
   const [emailMessage, setEmailMessage] = useState<string>("");
   const [contentMessage, setContentMessage] = useState<string>("");
   const [snsLinkMessage, setSnsLinkMessage] = useState<string>("");
+
+  const districtList: string[] = ["중구", "동구", "서구", "유성구", "대덕구"];
+  const router = useRouter();
+  const [flag, setFlag] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const district = districtList.map((list, i) => (
     <div
@@ -46,7 +47,7 @@ export default function CreateCommunication() {
         setTitleMessage("1글자 이상 20글자 이하로 입력해주세요.");
         setIsTitle(false);
       } else {
-        setTitleMessage("올바른 제목 형식입니다 :)");
+        setTitleMessage("올바른 제목 형식이에요 : )");
         setIsTitle(true);
       }
     },
@@ -59,7 +60,7 @@ export default function CreateCommunication() {
         setContentMessage("1글자 이상 255글자 이하로 입력해주세요.");
         setIsContent(false);
       } else {
-        setContentMessage("올바른 내용 형식입니다 :)");
+        setContentMessage("올바른 내용 형식이에요 : )");
         setIsContent(true);
       }
     },
@@ -73,7 +74,7 @@ export default function CreateCommunication() {
       setEmail(emailCurrent);
 
       if (!emailRegex.test(emailCurrent)) {
-        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅇㅁㅇ!!");
         setIsEmail(false);
       } else {
         setEmailMessage("올바른 이메일 형식이에요 : )");
@@ -89,7 +90,7 @@ export default function CreateCommunication() {
       setSnsLink(snsLinkCurrent);
 
       if (!snsLinkRegex.test(snsLinkCurrent)) {
-        setSnsLinkMessage("Link 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setSnsLinkMessage("Link 형식이 틀렸어요! 다시 확인해주세요 ㅇㅁㅇ!!");
         setIsSnsLink(false);
       } else {
         setSnsLinkMessage("올바른 Link 형식이에요 : )");
@@ -195,7 +196,7 @@ export default function CreateCommunication() {
               router.push("/mainCommunication");
             }
             else{
-              alert("제대로 채워")
+              alert("제대로 채워주세요")
             }
           }}
         >

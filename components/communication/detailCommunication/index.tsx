@@ -1,77 +1,139 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Header from "@/components/common/header";
+import { useState, useCallback } from "react";
 
 export default function DetailCommunication() {
+  const [content, setContent] = useState<string>("");
+  const [isContent, setIsContent] = useState<boolean>(false);
+  const [contentMessage, setContentMessage] = useState<string>("");
+
+  interface writingProps {
+    user: string;
+    tag: string;
+    snsLink: string;
+    email: string;
+    id: string;
+    title: string;
+    content: string;
+  }
+  const [writing, setWriting] = useState<writingProps>({
+    title: "파꽃나라 파꽃공주님",
+    tag: "중구",
+    snsLink: "https://google.sdkljflskjflsjfl",
+    email: "pjungae0423@dsm.hs.kr",
+    user: "파꽃공주",
+    id: "jungae34",
+    content:
+      "are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it? are you got it?",
+  });
+  interface commentsProps {
+    user: string;
+    id: string;
+    content: string;
+  }
+  const [comments, setComments] = useState<commentsProps[]>([
+    {
+      user: "파꽃공주",
+      id: "jungae34",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에 내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해 동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서 방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고 깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.",
+    },
+    {
+      user: "백설공주",
+      id: "ando204",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에 내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해 동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서 방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고 깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.",
+    },
+    {
+      user: "재민공주",
+      id: "jaemin532",
+      content:
+        "벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에 내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해 동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서 방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고 깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.",
+    },
+  ]);
+  const CommentsDiv = ({ list }: { list: commentsProps }) => {
+    return (
+      <CommentsBox>
+        <p>
+          <span>{`${list.user}님 `}</span>
+          {list.id}
+          <br />
+          2023.03.21
+        </p>
+        <h4>{list.content}</h4>
+        <hr />
+      </CommentsBox>
+    );
+  };
+  const onChangeContent = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+      if (e.target.value.length < 1 || e.target.value.length > 255) {
+        setContentMessage("1글자 이상 255글자 이하로 입력해주세요.");
+        setIsContent(false);
+      } else {
+        setContentMessage("올바른 내용 형식이에요 : )");
+        setIsContent(true);
+      }
+    },
+    []
+  );
   return (
     <Page>
       <Header></Header>
       <MainDiv>
         <TitleDiv>
           <h1>
-            파꽃나라 파꽃공주님&nbsp;<nav>중구</nav>
+            {writing.title}&nbsp;<nav>{writing.tag}</nav>
           </h1>
           <TitlePDiv>
             <p>
-              <span>카카오톡 오픈 채팅ㅤ</span>https://google.sdkljflskjflsjfl
+              <span>카카오톡 오픈 채팅ㅤ</span>
+              {writing.snsLink}
             </p>
             <p>
-              <span>이메일ㅤ</span>pjungae0423@dsm.hs.kr
+              <span>이메일ㅤ</span>
+              {writing.email}
             </p>
           </TitlePDiv>
           <DateDiv>
             <p>
-              <span>파꽃공주님</span> jungae34 | 2023.03.21
+              <span>{`${writing.user}님`}</span> {writing.id} | 2023.03.21
             </p>
           </DateDiv>
           <hr />
         </TitleDiv>
         <ContentsDiv>
-          <p>
-            are you got it? are you got it? are you got it? are you got it? are
-            you got it? are you got it? are you got it? are you got it? are you
-            got it? are you got it? are you got it? are you got it? are you got
-            it? are you got it? are you got it? are you got it? are you got it?
-            are you got it?
-          </p>
+          <p>{writing.content}</p>
           <hr />
         </ContentsDiv>
         <CommentsInputDiv>
-          <h4>2개의 댓글이 있습니다.</h4>
-          <textarea placeholder="댓글을 입력해주세요." />
-          <button>댓글 등록</button>
+          <h4>{`${comments.length}개의 댓글이 있습니다.`}</h4>
+          <textarea
+            placeholder="댓글을 입력해주세요."
+            value={content}
+            onChange={(e) => {
+              onChangeContent(e);
+            }}
+          />
+          {content.length > 0 && (
+            <span className={`message ${isContent ? "success" : "error"}`}>
+              {contentMessage}
+            </span>
+          )}
+          <button
+            onClick={() => {
+              isContent ? setContent("") : alert("제대로 채워주세요");
+            }}
+          >
+            댓글 등록
+          </button>
         </CommentsInputDiv>
         <CommentsContainer>
-          <CommentsBox>
-            <p>
-              <span>파꽃공주님</span> jungae34
-              <br />
-              2023.03.21
-            </p>
-            <h4>
-              벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에
-              내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해
-              동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서
-              방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고
-              깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.
-            </h4>
-            <hr />
-          </CommentsBox>
-          <CommentsBox>
-            <p>
-              <span>파꽃공주님</span> jungae34
-              <br />
-              2023.03.21
-            </p>
-            <h4>
-              벌써 40여 년 전이다. 내가 갓 세간난 지 얼마 안 돼서 의정부에
-              내려가 살 때다. 서울 왔다 가는 길에, 청량리역으로 가기 위해
-              동대문에서 일단 전차를 내려야 했다. 동대문 맞은편 길가에 앉아서
-              방망이를 깎아 파는 노인이 있었다. 방망이를 한 벌 사 가지고 가려고
-              깎아 달라고 부탁을 했다. 값을 굉장히 비싸게 부르는 것 같았다.
-            </h4>
-            <hr />
-          </CommentsBox>
+          {comments.map((list, index) => (
+            <CommentsDiv key={index} list={list}></CommentsDiv>
+          ))}
         </CommentsContainer>
         <Footer></Footer>
       </MainDiv>
@@ -79,7 +141,7 @@ export default function DetailCommunication() {
   );
 }
 const Page = styled.div`
-  width: 100vw;
+  width: 100%;
   background: #f9fafb;
   height: 100%;
 `;
