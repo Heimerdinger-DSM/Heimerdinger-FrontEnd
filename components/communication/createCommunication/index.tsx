@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/common/header";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function CreateCommunication() {
   const [snsLink, setSnsLink] = useState<string>("");
@@ -12,8 +13,8 @@ export default function CreateCommunication() {
 
   const [isTitle, setIsTitle] = useState<boolean>(false);
   const [isContent, setIsContent] = useState<boolean>(false);
-  const [isEmail, setIsEmail] = useState<boolean>(false);
-  const [isSnsLink, setIsSnsLink] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(true);
+  const [isSnsLink, setIsSnsLink] = useState<boolean>(true);
 
   const [titleMessage, setTitleMessage] = useState<string>("");
   const [emailMessage, setEmailMessage] = useState<string>("");
@@ -73,7 +74,10 @@ export default function CreateCommunication() {
       const emailCurrent = e.target.value;
       setEmail(emailCurrent);
 
-      if (!emailRegex.test(emailCurrent)) {
+      if (emailCurrent === "") {
+        setEmailMessage("");
+        setIsEmail(true);
+      } else if (!emailRegex.test(emailCurrent)) {
         setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅇㅁㅇ!!");
         setIsEmail(false);
       } else {
@@ -85,11 +89,14 @@ export default function CreateCommunication() {
   );
   const onChangeSnsLink = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const snsLinkRegex = /^(https?:\/\/)?(www\.)?([^\s./]+\.?)+(\/[^\s]*)?$/;
+      const snsLinkRegex = /^http[s]?:\/\/([\S]{3,})/i;
       const snsLinkCurrent = e.target.value;
       setSnsLink(snsLinkCurrent);
 
-      if (!snsLinkRegex.test(snsLinkCurrent)) {
+      if (snsLinkCurrent === "") {
+        setSnsLinkMessage("");
+        setIsSnsLink(true);
+      } else if (!snsLinkRegex.test(snsLinkCurrent)) {
         setSnsLinkMessage("Link 형식이 틀렸어요! 다시 확인해주세요 ㅇㅁㅇ!!");
         setIsSnsLink(false);
       } else {
@@ -121,6 +128,7 @@ export default function CreateCommunication() {
             <h4>SNS 링크</h4>
             <input
               placeholder="연락할 수 있는 SNS 링크를 입력해주세요."
+              value={snsLink}
               onChange={(e) => {
                 onChangeSnsLink(e);
               }}
@@ -135,6 +143,7 @@ export default function CreateCommunication() {
             <h4>이메일</h4>
             <input
               placeholder="이메일 주소를 입력해주세요."
+              value={email}
               onChange={(e) => {
                 onChangeEmail(e);
               }}
@@ -192,11 +201,16 @@ export default function CreateCommunication() {
         <CreateBtn
           type="submit"
           onClick={() => {
-            if (flag.includes(true) && isContent && isTitle) {
+            if (
+              flag.includes(true) &&
+              isContent &&
+              isTitle &&
+              isEmail &&
+              isSnsLink
+            ) {
               router.push("/mainCommunication");
-            }
-            else{
-              alert("제대로 채워주세요")
+            } else {
+              alert("제대로 채워주세요");
             }
           }}
         >
