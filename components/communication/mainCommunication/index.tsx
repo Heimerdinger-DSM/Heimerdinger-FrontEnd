@@ -9,6 +9,7 @@ import StarYellow from "../../../public/img/star/yellow.png";
 import StarBlack from "../../../public/img/star/black.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function MainCommunication() {
   const [flag, setFlag] = useState<boolean>(true);
@@ -134,8 +135,8 @@ export default function MainCommunication() {
                 setWriting((prevWriting) => {
                   const updatedWriting = [...prevWriting];
                   selectedIds.includes(list.key)
-                      ? (list.starCnt -= 1 / 2)
-                      : (list.starCnt += 1 / 2);
+                    ? (list.starCnt -= 1 / 2)
+                    : (list.starCnt += 1 / 2);
                   return updatedWriting;
                 });
               }}
@@ -206,6 +207,7 @@ export default function MainCommunication() {
       </>
     );
   };
+
   return (
     <Page>
       <Header></Header>
